@@ -1,0 +1,12 @@
+class Incrementer{
+    int count = 0; // keeps a count
+
+    /*
+    * This method keeps a count
+     */
+    public void inc(){
+        // increment the counter here
+        count++;
+        /* end of method */
+    }
+}

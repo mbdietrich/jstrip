@@ -1,0 +1,5 @@
+class CommentGenerator{
+    public static String generateShortComment(){
+        return "// this is a short comment";
+    }
+}

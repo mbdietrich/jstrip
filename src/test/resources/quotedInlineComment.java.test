@@ -1,0 +1,5 @@
+class CommentGenerator{
+    public static String generateInlineComment(){
+        return "this is not /* an inline comment */ - or is it?";
+    }
+}

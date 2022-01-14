@@ -1,0 +1,8 @@
+// Class for an incremental counter
+class Incrementer{
+    int count = 0;
+
+    public void inc(){
+        count++;
+    }
+}

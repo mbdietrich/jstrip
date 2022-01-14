@@ -1,0 +1,5 @@
+class Incrementer{
+    int count = 0;
+
+    public void inc(){
+        count++;
