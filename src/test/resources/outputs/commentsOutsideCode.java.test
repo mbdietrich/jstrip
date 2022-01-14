@@ -3,3 +3,5 @@ class Incrementer{
 
     public void inc(){
         count++;
+    }
+}
