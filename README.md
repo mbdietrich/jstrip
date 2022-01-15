@@ -19,6 +19,12 @@ String input = Files.readString(Paths.get("/path/to/code"));
 String output = CommentStripper.strip(input); // Returns LINTed code, with comments removed
 ```
 
+As an executable:
+
+```bash
+cat <FILENAME> | java -jar jstrip-0.0.1.jar
+```
+
 ## Discussion
 
 Identifying and removing comments can be completed with regular expressions; however, comments may also be present in a String literal. This could still be handled by a regular expression, but is more cleanly handled by interpreting the AST and removing any comment nodes.
