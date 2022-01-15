@@ -1,5 +1,6 @@
-class CommentGenerator{
-    public static String generateBlockComment(){
+class CommentGenerator {
+
+    public static String generateBlockComment() {
         return """
           /* 
            * We love the comment.

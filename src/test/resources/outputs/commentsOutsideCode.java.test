@@ -1,7 +1,8 @@
-class Incrementer{
+class Incrementer {
+
     int count = 0;
 
-    public void inc(){
+    public void inc() {
         count++;
     }
 }
