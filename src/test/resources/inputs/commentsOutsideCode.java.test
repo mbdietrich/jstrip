@@ -1,4 +1,6 @@
-// Class for an incremental counter
+/*
+ * Class for an incremental counter
+ */
 class Incrementer{
     int count = 0;
 
@@ -6,3 +8,4 @@ class Incrementer{
         count++;
     }
 }
+// End of class

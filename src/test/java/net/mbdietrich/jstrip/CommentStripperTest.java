@@ -24,9 +24,9 @@ public class CommentStripperTest {
     @RunWith(Parameterized.class)
     public static class CommentStripperFileAssertions {
 
+        private final String testName;
         private final String input;
         private final String expectedOutput;
-        private final String testName;
 
         public CommentStripperFileAssertions(String testName, String input, String expectedOutput) {
             super();
@@ -70,15 +70,39 @@ public class CommentStripperTest {
         }
     }
 
-    public static class CommentStripperFailCases {
-        @Test(expected = IllegalArgumentException.class)
-        public void testInvalidInput() {
-            String input = """
-                        // Invalid java code
-                        public class Invalid {
-                          this shouldn't be here            
-                    """;
+    @RunWith(Parameterized.class)
+    public static class CommentStripperErrorAssertions {
 
+        private final String testName;
+        private final String input;
+
+        public CommentStripperErrorAssertions(String testName, String input) {
+            super();
+            this.testName = testName;
+            this.input = input;
+        }
+
+        private static String[] allFailCaseFiles() {
+            File[] inputs = new File("src/test/resources/failCases").listFiles();
+
+            return Stream.of(inputs).map(f -> f.getAbsolutePath().toString()).toArray(String[]::new);
+        }
+
+        @Parameterized.Parameters
+        public static Collection<String[]> loadFixtures() throws IOException {
+            Collection<String[]> fixtures = new ArrayList<String[]>();
+
+            for (String inputPath : allFailCaseFiles()) {
+                String testName = new File(inputPath).getName();
+                String inputStr = Files.readString(Paths.get(inputPath));
+
+                fixtures.add(new String[]{testName, inputStr});
+            }
+            return fixtures;
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void testErrorIsThrown() {
             CommentStripper.strip(input);
         }
     }
