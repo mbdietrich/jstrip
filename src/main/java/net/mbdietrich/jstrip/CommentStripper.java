@@ -1,33 +1,39 @@
 package net.mbdietrich.jstrip;
 
 import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseProblemException;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
 
+/**
+ * A utility class for removing comments from a String of valid Java code.
+ * Call {@link #strip(String)}.
+ *
+ * @author mbdietrich
+ */
 public class CommentStripper {
+
+    /**
+     * Given a String containing valid Java code, returns the equivalent code with
+     * all comments removed. The code will be linted and validated.
+     *
+     * @param input The Java code to be stripped of comments.
+     * @return The equivalent code, without any comments.
+     * @throws IllegalArgumentException Thrown if the input could not be parsed as valid Java.
+     */
     public static String strip(String input){
-        try {
-            JavaParser javaParser = new JavaParser();
-            ParseResult<CompilationUnit> result = javaParser.parse(input);
+            // Parse the input string and validate it
+            ParseResult<CompilationUnit> result = new JavaParser().parse(input);
             if(!result.isSuccessful()){
                 throw new IllegalArgumentException("Invalid Java: "+result.getProblems());
             }
+
+            // Extract the tree from the result and remove all Comment nodes
             CompilationUnit tree = result.getResult().get();
+            tree.getAllContainedComments()
+                    .stream()
+                    .forEach(c -> c.remove());
 
-            stripComments(tree);
-
+            // Return the tree as a String
             return tree.toString();
-        } catch (ParseProblemException e) {
-            throw new IllegalArgumentException("Invalid Java: "+e.getMessage());
-        }
-    }
-
-    // Remove all comment nodes from the AST
-    private static void stripComments(Node tree){
-        for(Node comment : tree.getAllContainedComments()){
-            comment.remove();
-        }
     }
 }

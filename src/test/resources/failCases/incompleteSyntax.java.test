@@ -1,0 +1,4 @@
+public void inc(){
+    /* Lorem Ipsum */
+    count++;
+}
